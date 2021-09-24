@@ -1,9 +1,9 @@
+import 'chat_screen.dart';
+import 'package:flash_chat/constants.dart';
 import 'package:flash_chat/components/round_button.dart';
 import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'chat_screen.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -35,7 +35,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   tag: 'logo',
                   child: Container(
                     height: 200.0,
-                    child: Image.asset('images/logo.png'),
+                    child: Image.asset(
+                      'images/logo.png',
+                    ),
                   ),
                 ),
               ),
@@ -49,7 +51,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   email = value;
                 },
                 decoration: textFieldDecoration.copyWith(
-                    hintText: 'Enter your email...'),
+                  hintText: 'Enter your email...',
+                ),
               ),
               SizedBox(
                 height: 8.0,
@@ -61,7 +64,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   password = value;
                 },
                 decoration: textFieldDecoration.copyWith(
-                    hintText: 'Enter your pasword...'),
+                  hintText: 'Enter your pasword...',
+                ),
               ),
               SizedBox(
                 height: 24.0,
@@ -70,18 +74,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 title: 'Register',
                 colour: Colors.blueAccent,
                 onPressed: () async {
-                  setState(() {
-                    showSpinner = true;
-                  });
+                  setState(
+                    () {
+                      showSpinner = true;
+                    },
+                  );
                   try {
                     final newUser = await _auth.createUserWithEmailAndPassword(
-                        email: email, password: password);
+                      email: email,
+                      password: password,
+                    );
                     if (newUser != null) {
-                      Navigator.pushNamed(context, ChatScreen.id);
+                      Navigator.pushNamed(
+                        context,
+                        ChatScreen.id,
+                      );
                     }
-                    setState(() {
-                      showSpinner = false;
-                    });
+                    setState(
+                      () {
+                        showSpinner = false;
+                      },
+                    );
                   } catch (e) {
                     print(e);
                   }

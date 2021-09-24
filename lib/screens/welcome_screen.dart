@@ -23,14 +23,15 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       duration: Duration(seconds: 3),
       vsync: this,
     );
-    animation =
-        ColorTween(begin: Colors.red, end: Colors.blue).animate(controller);
+    animation = ColorTween(
+      begin: Colors.red,
+      end: Colors.blue,
+    ).animate(controller);
     controller.forward();
 
-    controller.addListener(() {
-      setState(() {});
-      // print(animation.value);
-    });
+    // controller.addListener(() {
+    //   setState(() {});
+    // });
   }
 
   @override
@@ -42,7 +43,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: animation.value,
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -59,17 +59,19 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     height: 60.0,
                   ),
                 ),
-                AnimatedTextKit(animatedTexts: [
-                  TypewriterAnimatedText(
-                    'Flash Chat',
-                    textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 45.0,
-                      fontWeight: FontWeight.w900,
+                AnimatedTextKit(
+                  animatedTexts: [
+                    TypewriterAnimatedText(
+                      'Flash Chat',
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 45.0,
+                        fontWeight: FontWeight.w900,
+                      ),
+                      speed: Duration(milliseconds: 200),
                     ),
-                    speed: Duration(milliseconds: 200),
-                  ),
-                ]),
+                  ],
+                ),
               ],
             ),
             SizedBox(
@@ -79,14 +81,20 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               title: 'Log in',
               colour: Colors.lightBlueAccent,
               onPressed: () {
-                Navigator.pushNamed(context, LoginScreen.id);
+                Navigator.pushNamed(
+                  context,
+                  LoginScreen.id,
+                );
               },
             ),
             RoundedButton(
               title: 'Register',
               colour: Colors.blueAccent,
               onPressed: () {
-                Navigator.pushNamed(context, RegistrationScreen.id);
+                Navigator.pushNamed(
+                  context,
+                  RegistrationScreen.id,
+                );
               },
             ),
           ],

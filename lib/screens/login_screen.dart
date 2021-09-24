@@ -1,9 +1,9 @@
 import 'package:flash_chat/constants.dart';
-import 'package:flutter/material.dart';
 import 'package:flash_chat/components/round_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/screens/chat_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
@@ -13,19 +13,20 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
-  bool showSpinner = false;
-
-  String email;
-  String password;
+  bool _showSpinner = false;
+  String _email;
+  String _password;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
-        inAsyncCall: showSpinner,
+        inAsyncCall: _showSpinner,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: 24.0,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -35,7 +36,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   tag: 'logo',
                   child: Container(
                     height: 200.0,
-                    child: Image.asset('images/logo.png'),
+                    child: Image.asset(
+                      'images/logo.png',
+                    ),
                   ),
                 ),
               ),
@@ -45,10 +48,11 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  email = value;
+                  _email = value;
                 },
                 decoration: textFieldDecoration.copyWith(
-                    hintText: 'Enter your email...'),
+                  hintText: 'Enter your email...',
+                ),
               ),
               SizedBox(
                 height: 8.0,
@@ -57,10 +61,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: true,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  password = value;
+                  _password = value;
                 },
                 decoration: textFieldDecoration.copyWith(
-                    hintText: 'Enter your pasword...'),
+                  hintText: 'Enter your pasword...',
+                ),
               ),
               SizedBox(
                 height: 24.0,
@@ -69,20 +74,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 title: 'Log in',
                 colour: Colors.lightBlueAccent,
                 onPressed: () async {
-                  setState(() {
-                    showSpinner = true;
-                  });
+                  setState(
+                    () {
+                      _showSpinner = true;
+                    },
+                  );
                   try {
                     final newUser = await _auth.signInWithEmailAndPassword(
-                        email: email, password: password);
+                      email: _email,
+                      password: _password,
+                    );
                     if (newUser != null) {
-                      Navigator.pushNamed(context, ChatScreen.id);
+                      Navigator.pushNamed(
+                        context,
+                        ChatScreen.id,
+                      );
                     }
-                    setState(() {
-                      showSpinner = false;
-                    });
-                  } catch (e) {
-                    print(e);
+                    setState(
+                      () {
+                        _showSpinner = false;
+                      },
+                    );
+                  } catch (_e) {
+                    print(_e);
                   }
                 },
               ),

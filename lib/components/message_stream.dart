@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flash_chat/components/message_bubble.dart';
 import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +10,13 @@ class MassageStream extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: _firestore
-          .collection('messages')
-          .orderBy('timestamp', descending: false)
+          .collection(
+            'messages',
+          )
+          .orderBy(
+            'timestamp',
+            descending: false,
+          )
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
@@ -22,24 +26,24 @@ class MassageStream extends StatelessWidget {
             ),
           );
         }
-        final messages = snapshot.data.docs.reversed;
-        List<MessageBubble> messageBubbles = [];
-        for (var message in messages) {
-          final messageText = message['text'];
-          final messageSender = message['sender'];
+        final _messages = snapshot.data.docs.reversed;
+        List<MessageBubble> _messageBubbles = [];
+        for (var message in _messages) {
+          final _messageText = message['text'];
+          final _messageSender = message['sender'];
 
-          final currentUser = loggedInUser.email;
+          final _currentUser = loggedInUser.email;
 
-          if (currentUser == messageSender) {
+          if (_currentUser == _messageSender) {
             //The massage from the logged in user.
           }
 
-          final messageBubble = MessageBubble(
-            sender: messageSender,
-            text: messageText,
-            isMe: currentUser == messageSender,
+          final _messageBubble = MessageBubble(
+            sender: _messageSender,
+            text: _messageText,
+            isMe: _currentUser == _messageSender,
           );
-          messageBubbles.add(messageBubble);
+          _messageBubbles.add(_messageBubble);
         }
         return Expanded(
           child: ListView(
@@ -48,7 +52,7 @@ class MassageStream extends StatelessWidget {
               horizontal: 10.0,
               vertical: 20.0,
             ),
-            children: messageBubbles,
+            children: _messageBubbles,
           ),
         );
       },
