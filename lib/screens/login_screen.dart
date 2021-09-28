@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -47,9 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               TextField(
                 textAlign: TextAlign.center,
-                onChanged: (value) {
-                  _email = value;
-                },
+                onChanged: (value) => _email = value,
                 decoration: textFieldDecoration.copyWith(
                   hintText: 'Enter your email...',
                 ),
@@ -60,9 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 obscureText: true,
                 textAlign: TextAlign.center,
-                onChanged: (value) {
-                  _password = value;
-                },
+                onChanged: (value) => _password = value,
                 decoration: textFieldDecoration.copyWith(
                   hintText: 'Enter your pasword...',
                 ),
@@ -95,8 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         _showSpinner = false;
                       },
                     );
-                  } catch (_e) {
-                    print(_e);
+                  } catch (e) {
+                    print(e);
                   }
                 },
               ),

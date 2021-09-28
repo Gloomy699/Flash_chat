@@ -17,10 +17,10 @@ class _FlashChat extends StatelessWidget {
     return MaterialApp(
       initialRoute: WelcomeScreen.id,
       routes: {
-        WelcomeScreen.id: (context) => WelcomeScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
-        RegistrationScreen.id: (context) => RegistrationScreen(),
-        ChatScreen.id: (context) => ChatScreen(),
+        WelcomeScreen.id: (_) => WelcomeScreen(),
+        LoginScreen.id: (_) => LoginScreen(),
+        RegistrationScreen.id: (_) => RegistrationScreen(),
+        ChatScreen.id: (_) => ChatScreen(),
       },
     );
   }

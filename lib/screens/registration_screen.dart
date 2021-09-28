@@ -8,22 +8,23 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registration_screen';
+
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
-  bool showSpinner = false;
-  String email;
-  String password;
+  bool _showSpinner = false;
+  String _email;
+  String _password;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
-        inAsyncCall: showSpinner,
+        inAsyncCall: _showSpinner,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
@@ -47,9 +48,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               TextField(
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
-                onChanged: (value) {
-                  email = value;
-                },
+                onChanged: (value) => _email = value,
                 decoration: textFieldDecoration.copyWith(
                   hintText: 'Enter your email...',
                 ),
@@ -60,9 +59,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               TextField(
                 obscureText: true,
                 textAlign: TextAlign.center,
-                onChanged: (value) {
-                  password = value;
-                },
+                onChanged: (value) => _password = value,
                 decoration: textFieldDecoration.copyWith(
                   hintText: 'Enter your pasword...',
                 ),
@@ -76,13 +73,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 onPressed: () async {
                   setState(
                     () {
-                      showSpinner = true;
+                      _showSpinner = true;
                     },
                   );
                   try {
                     final newUser = await _auth.createUserWithEmailAndPassword(
-                      email: email,
-                      password: password,
+                      email: _email,
+                      password: _password,
                     );
                     if (newUser != null) {
                       Navigator.pushNamed(
@@ -92,7 +89,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     }
                     setState(
                       () {
-                        showSpinner = false;
+                        _showSpinner = false;
                       },
                     );
                   } catch (e) {

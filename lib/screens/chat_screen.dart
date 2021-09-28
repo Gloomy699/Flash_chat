@@ -10,6 +10,7 @@ User loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   static String id = 'chat_screen';
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -23,10 +24,10 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    getCurrentUser();
+    _getCurrentUser();
   }
 
-  void getCurrentUser() async {
+  Future<void> _getCurrentUser() async {
     try {
       final user = _auth.currentUser;
       if (user != null) {
@@ -73,9 +74,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: TextField(
                       controller: _messageTextController,
-                      onChanged: (value) {
-                        _messageText = value;
-                      },
+                      onChanged: (value) => _messageText = value,
                       decoration: messageTextFieldDecoration,
                     ),
                   ),

@@ -13,31 +13,22 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation animation;
+  AnimationController _controller;
+  Animation _animation;
+
   @override
   void initState() {
     super.initState();
 
-    controller = AnimationController(
+    _controller = AnimationController(
       duration: Duration(seconds: 3),
       vsync: this,
     );
-    animation = ColorTween(
+    _animation = ColorTween(
       begin: Colors.red,
       end: Colors.blue,
-    ).animate(controller);
-    controller.forward();
-
-    // controller.addListener(() {
-    //   setState(() {});
-    // });
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+    ).animate(_controller);
+    _controller.forward();
   }
 
   @override
@@ -101,5 +92,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
